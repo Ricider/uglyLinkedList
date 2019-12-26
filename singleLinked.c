@@ -38,6 +38,13 @@ int regularGet(List* this,int index){
 int regularDelete(List* this,int index){
 	Node* current=this->first;
 	Node* prev;
+	if (index==0){
+		int returnInt=current->element;
+		Node* next=current->next;
+		free(current);
+		this->first=next;
+		return returnInt;
+	}
 	for (;index>0;index--){
 		if (index==1) {prev=current;}
 		current=current->next;
@@ -74,11 +81,13 @@ List* new_RegularList(int firstElement){
 }
 
 int main(){
-	List* testList=new_RegularList(5);
+	List* testList=new_RegularList(4);
+	(*testList).add(testList,5);
 	(*testList).add(testList,6);
 	(*testList).add(testList,7);
 	printf("%d\n",(*testList).delete(testList,1));
 	(*testList).addAfter(testList,0,8);
+	printf("%d\n",(*testList).delete(testList,0));
 	printf("%d  %d  %d\n",(*testList).get(testList,0),(*testList).get(testList,1),(*testList).get(testList,2));
 	return 0;
 }
