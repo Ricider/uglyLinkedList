@@ -105,7 +105,6 @@ int main(){
 	testList.print(testList);
 	printf("removed %d from pos 0\n",testList.delete(testList,0));
 	testList.print(testList);
-	//printf("%d\n",testList.first->next);
 	printf("first element is %d\n",testList.get(testList,0));
 	return 0;
 }
