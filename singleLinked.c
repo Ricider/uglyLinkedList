@@ -12,7 +12,7 @@ typedef struct _HeadPtr{
 	
 	//method pointers
 	void (*add) (struct _HeadPtr,int);
-	int (*delete) (struct _HeadPtr*,int);
+	int (*delete) (struct _HeadPtr,int);
 	int (*get) (struct _HeadPtr,int);
 	void (*addAfter) (struct _HeadPtr,int,int);
 	void (*print) (struct _HeadPtr);
@@ -36,14 +36,15 @@ int regularGet(List this,int index){
 	return current->element;
 }
 
-int regularDelete(List* this,int index){
-	Node* current=this->first;
+int regularDelete(List this,int index){
+	Node* current=this.first;
 	Node* prev;
 	if (index==0){
 		int returnInt=current->element;
-		Node* next=current->next;
-		free(current);
-		this->first=next;
+		Node* nodeToFree=current->next;
+		current->element=current->next->element;
+		current->next=current->next->next;
+		free(nodeToFree);
 		return returnInt;
 	}
 	for (;index>0;index--){
@@ -98,34 +99,14 @@ int main(){
 	testList.add(testList,6);
 	testList.add(testList,7);
 	testList.print(testList);
-	printf("removed %d from pos 1\n",testList.delete(&testList,1));
+	printf("removed %d from pos 1\n",testList.delete(testList,1));
 	testList.addAfter(testList,0,8);
 	printf("added 8 after pos 0\n");
 	testList.print(testList);
-	printf("removed %d from pos 0\n",testList.delete(&testList,0));
+	printf("removed %d from pos 0\n",testList.delete(testList,0));
 	testList.print(testList);
 	//printf("%d\n",testList.first->next);
 	printf("first element is %d\n",testList.get(testList,0));
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
