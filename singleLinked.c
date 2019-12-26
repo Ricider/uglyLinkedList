@@ -18,7 +18,6 @@ typedef struct _HeadPtr{
 }List;
 
 //methods
-
 void regularAdd(List* this,int newElement){
 	Node* current=this->first;
 	while (current->next!=0){
